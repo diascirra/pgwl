@@ -109,6 +109,20 @@ class PolylinesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $imagefile = $this->polyline->find($id)->image;
+
+        if (!$this->polyline->destroy($id)) {
+            return redirect()->route('map')->with('error', 'Polyline failed to delete');
+        }
+
+        // delete image file if exists
+        if ($imagefile != null) {
+            $imagePath = public_path('storage/images/' . $imagefile);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        return redirect()->route('map')->with('success', 'Polyline has been deleted');
     }
 }

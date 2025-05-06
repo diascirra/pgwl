@@ -112,6 +112,20 @@ class PointsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $imagefile = $this->points->find($id)->image;
+
+        if (!$this->points->destroy($id)) {
+            return redirect()->route('map')->with('error', 'Point failed to delete');
+        }
+
+        // delete image file if exists
+        if ($imagefile != null) {
+            $imagePath = public_path('storage/images/' . $imagefile);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        return redirect()->route('map')->with('success', 'Point has been deleted');
     }
 }
