@@ -46,7 +46,7 @@ class PolylinesController extends Controller
                 'name.required' => 'Name is required',
                 'name.unique' => 'Name already exists',
                 'description.required' => 'Description is required',
-                'geom_polyline.required' => 'Geometry point is required',
+                'geom_polyline.required' => 'Geometry polyline is required',
             ]
         );
 
@@ -93,7 +93,11 @@ class PolylinesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = [
+            'title' => 'Edit Polyline',
+            'id' => $id,
+        ];
+        return view('edit-polyline', $data);
     }
 
     /**
@@ -101,8 +105,64 @@ class PolylinesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validation data
+        $request->validate(
+            [
+                'name' => 'required|unique:polyline,name,' . $id,
+                'description' => 'required',
+                'geom_polyline' => 'required',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,svg|max:30'
+            ],
+            [
+                'name.required' => 'Name is required',
+                'name.unique' => 'Name already exists',
+                'description.required' => 'Description is required',
+                'geom_polyline.required' => 'Geometry polyline is required'
+            ]
+        );
+
+        //create image directory
+        if (!is_dir(public_path('storage/images'))) {
+            mkdir(public_path('storage/images'), 0777, true);
+        }
+
+        //get old image file name
+        $old_image = $this->polyline->find($id)->image;
+
+        //get image file
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name_image = time() . "_polyline." . strtolower($image->getClientOriginalExtension());
+            $image->move('storage/images', $name_image);
+
+
+            //delete old image
+            if ($old_image != null) {
+        $oldPath = public_path('storage/images/' . $old_image);
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
+        }
     }
+           } else {
+    $name_image = $old_image;
+}
+
+            $data = [
+                'geom' => $request->geom_polyline,
+                'name' => $request->name,
+                'description' => $request->description,
+                'image' => $name_image,
+            ];
+
+            //update data
+            if (!$this->polyline->find($id)->update($data)) {
+                return redirect()->route('map')->with('error', 'Polyline Failed to update');
+            }
+
+            //Redirect to map
+            return redirect()->route('map')->with('success', 'Polyline has been updated');
+        }
+    
 
     /**
      * Remove the specified resource from storage.

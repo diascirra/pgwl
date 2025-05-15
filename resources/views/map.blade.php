@@ -1,4 +1,4 @@
-@extends('layout/template')
+@extends('layout/templates')
 
 @section('style')
     <!-- Leaflet CSS -->
@@ -226,16 +226,26 @@
                 var routedelete = "{{ route('points.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                var routeedit = "{{ route('points.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popupContent = "Nama:" + feature.properties.name + "<br>" +
                     "deskripsi:" + feature.properties.description + "<br>" +
                     "Dibuat" + feature.properties.created_at + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200'>" +
                     "<br>" +
+                    "<div class='row mt-4'>" +
+                        "<div class='col-6 text-end'>" +
+                    "<a href='" + routeedit +"' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "</div>" +
+                    "<div class='col-6 text-start'>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     `@csrf` +
                     `@method('DELETE')` +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>" +
+                    "</div>";
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
@@ -259,17 +269,27 @@
                 var routedelete = "{{ route('polyline.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                var routeedit = "{{ route('polyline.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popupContent = "Nama:" + feature.properties.name + "<br>" +
                     "deskripsi:" + feature.properties.description + "<br>" +
                     "panjang:" + feature.properties.length_m + "<br>" +
                     "Dibuat" + feature.properties.created_at + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200'>" +
                     "<br>" +
+                    "<div class='row mt-4'>" +
+                        "<div class='col-6 text-end'>" +
+                    "<a href='" + routeedit +"' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "</div>" +
+                    "<div class='col-6 text-start'>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     `@csrf` +
                     `@method('DELETE')` +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>" +
+                    "</div>";
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
@@ -291,15 +311,25 @@
                 var routedelete = "{{ route('polygons.destroy', ':id') }}";
                 routedelete = routedelete.replace(':id', feature.properties.id);
 
+                var routeedit = "{{ route('polygons.edit', ':id') }}";
+                routeedit = routeedit.replace(':id', feature.properties.id);
+
                 var popupContent = "Nama:" + feature.properties.name + "<br>" +
                     "deskripsi:" + feature.properties.description + "<br>" +
                     "<img src='{{ asset('storage/images') }}/" + feature.properties.image + "' width='200'>" +
                     "<br>" +
+                    "<div class='row mt-4'>" +
+                        "<div class='col-6 text-end'>" +
+                    "<a href='" + routeedit +"' class='btn btn-warning btn-sm'><i class='fa-solid fa-pen-to-square'></i></a>" +
+                    "</div>" +
+                    "<div class='col-6 text-start'>" +
                     "<form method='POST' action='" + routedelete + "'>" +
                     `@csrf` +
                     `@method('DELETE')` +
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
-                    "</form>";
+                    "</form>" +
+                    "</div>" +
+                    "</div>";
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
