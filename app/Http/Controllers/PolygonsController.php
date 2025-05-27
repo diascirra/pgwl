@@ -45,7 +45,7 @@ class PolygonsController extends Controller
                 'name.required' => 'Name is required',
                 'name.unique' => 'Name already exists',
                 'description.required' => 'Description is required',
-                'geom_polygon.required' => 'Geometry point is required',
+                'geom_polygon.required' => 'Geometry polygon is required',
             ]
         );
 
@@ -68,6 +68,7 @@ class PolygonsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $name_image,
+            'user_id' => auth()->user()->id,
         ];
 
         //create data
@@ -154,6 +155,7 @@ class PolygonsController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $name_image,
+            'user_id' => auth()->user()->id,
         ];
 
         // Update data

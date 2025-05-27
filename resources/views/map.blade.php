@@ -245,7 +245,8 @@
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
                     "</form>" +
                     "</div>" +
-                    "</div>";
+                    "</div>" + "<br>" +
+                    "<p>Dibuat: " + feature.properties.user_created + "</p>";
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
@@ -289,7 +290,8 @@
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
                     "</form>" +
                     "</div>" +
-                    "</div>";
+                    "</div>" + "<br>" +
+                    "<p>Dibuat: " + feature.properties.user_created + "</p>";;
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
@@ -329,7 +331,8 @@
                     "<button type='submit' class='btn btn-danger btn-sm' onclick= 'return confirm(`Yakin akan dihapus?`)'><i class='fa-solid fa-trash'></i></button>" +
                     "</form>" +
                     "</div>" +
-                    "</div>";
+                    "</div>" + "<br>" +
+                    "<p>Dibuat: " + feature.properties.user_created + "</p>";;
 
                 layer.bindPopup(popupContent);
                 layer.bindTooltip(feature.properties.name);
