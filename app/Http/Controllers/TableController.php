@@ -19,19 +19,15 @@ class TableController extends Controller
 
     public function index()
     {
-        // Ambil data dari model
-        $points = $this->points->all();
-        $polylines = $this->polyline->all();
-        $polygons = $this->polygon->all();
-
-        // Kirim data ke view
+    {
         $data = [
             'title' => 'Table',
-            'points' => $points,
-            'polyline' => $polylines,
-            'polygons' => $polygons
+            'points' => $this->points->all(),
+            'polylines' => $this->polyline->all(),
+            'polygons' => $this->polygon->all(),
         ];
 
         return view('table', $data);
     }
+}
 }
